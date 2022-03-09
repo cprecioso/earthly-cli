@@ -1,0 +1,24 @@
+{
+  "description": "Binary distribution of `earthly`",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cprecioso/earthly-cli.git"
+  },
+  "homepage": "https://github.com/cprecioso/earthly-cli",
+  "bugs": {
+    "url": "https://github.com/cprecioso/earthly-cli/issues"
+  },
+  "author": "Carlos Precioso",
+  "license": "ISC",
+  "engines": {
+    "node": ">=10"
+  },
+  "keywords": [
+    "earthly",
+    "docker",
+    "make"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
