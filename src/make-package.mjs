@@ -56,6 +56,10 @@ export const makePackage = async function* (releases) {
         }),
       },
       {
+        path: "readme.md",
+        contents: fs.createReadStream("template/readme.md"),
+      },
+      {
         path: path.join("package.json"),
         contents: Buffer.from(
           JSON.stringify({
@@ -78,6 +82,10 @@ export const makePackage = async function* (releases) {
       {
         path: "bin.js",
         contents: fs.createReadStream("template/bin.js"),
+      },
+      {
+        path: "readme.md",
+        contents: fs.createReadStream("template/readme.md"),
       },
       {
         path: "package.json",
