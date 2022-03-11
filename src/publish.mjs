@@ -1,7 +1,9 @@
+// @ts-check
+
 import { execa } from "execa";
 
 export const publish = async function* (
-  /** @type {AsyncIterable<Vinyl>} */ files
+  /** @type {AsyncIterable<import("vinyl")>} */ files
 ) {
   for await (const file of files) {
     try {

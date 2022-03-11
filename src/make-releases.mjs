@@ -1,3 +1,5 @@
+// @ts-check
+
 import semver from "semver";
 
 const normalizePlatform = (platform) => {
