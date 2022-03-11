@@ -20,11 +20,19 @@ void (async () => {
 
   const version = semver.parse(releaseData.tag_name).version;
 
-  await pipeline(
-    makeReleases(releaseData),
-    makePackage(version),
-    gulpGzip({ extension: "tgz" }),
-    vfs.dest("dist"),
-    /** @type {any} */ (publish)
+  const { statusCode } = await got.head(
+    `https://registry.npmjs.org/earthly-cli/${version}`,
+    { throwHttpErrors: false }
   );
+
+  const packageAlreadyFound = statusCode >= 200 && statusCode < 400;
+  if (!packageAlreadyFound) {
+    await pipeline(
+      makeReleases(releaseData),
+      makePackage(version),
+      gulpGzip({ extension: "tgz" }),
+      vfs.dest("dist"),
+      /** @type {any} */ (publish)
+    );
+  }
 })();
