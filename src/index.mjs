@@ -26,6 +26,9 @@ await (async () => {
   );
 
   const packageAlreadyFound = statusCode >= 200 && statusCode < 400;
+
+  console.log("Status", { version, statusCode, packageAlreadyFound });
+
   if (!packageAlreadyFound) {
     await pipeline(
       makeReleases(releaseData),
