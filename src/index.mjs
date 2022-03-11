@@ -12,7 +12,7 @@ import { publish } from "./publish.mjs";
 
 const pipeline = promisify(_pipeline);
 
-void (async () => {
+await (async () => {
   const releaseData = await got(
     "https://api.github.com/repos/earthly/earthly/releases/latest",
     { headers: { Accept: "application/vnd.github.v3+json" } }
