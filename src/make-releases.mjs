@@ -1,7 +1,5 @@
 // @ts-check
 
-import semver from "semver";
-
 const normalizePlatform = (platform) => {
   switch (platform.toLowerCase()) {
     case "win":
@@ -33,9 +31,7 @@ const normalizeArch = (arch) => {
   }
 };
 
-export const makeReleases = function* (/** @type {any} */ releaseData) {
-  const version = semver.parse(releaseData.tag_name).version;
-
+export const makeReleases = function* (releaseData) {
   for (const { name, url } of releaseData.assets) {
     const [, rawPlatform, rawArch] = name.match(
       /^earthly-(.+?)-(.+?)(?:\.(.+?))?$/i
@@ -43,6 +39,6 @@ export const makeReleases = function* (/** @type {any} */ releaseData) {
     const platform = normalizePlatform(rawPlatform);
     const arch = normalizeArch(rawArch);
 
-    yield { name, version, url, platform, arch };
+    yield { name, url, platform, arch };
   }
 };

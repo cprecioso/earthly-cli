@@ -2,6 +2,7 @@
 
 import got from "got";
 import gulpGzip from "gulp-gzip";
+import semver from "semver";
 import { pipeline as _pipeline } from "stream";
 import { promisify } from "util";
 import vfs from "vinyl-fs";
@@ -17,9 +18,11 @@ void (async () => {
     { headers: { Accept: "application/vnd.github.v3+json" } }
   ).json();
 
+  const version = semver.parse(releaseData.tag_name).version;
+
   await pipeline(
     makeReleases(releaseData),
-    makePackage,
+    makePackage(version),
     gulpGzip({ extension: "tgz" }),
     vfs.dest("dist"),
     /** @type {any} */ (publish)

@@ -34,76 +34,76 @@ const makePackageTar = async function* (
   yield* tar;
 };
 
-export const makePackage = async function* (releases) {
-  const templatePkg = JSON.parse(
-    await fs.promises.readFile("template/package.json", "utf-8")
-  );
+export const makePackage = (/** @type {string} */ version) =>
+  async function* (releases) {
+    const templatePkg = JSON.parse(
+      await fs.promises.readFile("template/package.json", "utf-8")
+    );
 
-  const allPkgs = new Set();
-  let allVersion;
+    const allPkgs = new Set();
 
-  for await (const release of releases) {
-    const { platform, arch, name, url, version } = release;
+    for await (const release of releases) {
+      const { platform, arch, name, url } = release;
 
-    const pkgName = `@earthly-cli/bin-${platform}-${arch}`;
-    allPkgs.add(pkgName);
-    allVersion = version;
-    const pkgSlug = slugify(pkgName);
+      const pkgName = `@earthly-cli/bin-${platform}-${arch}`;
+      allPkgs.add(pkgName);
 
-    yield* makePackageTar(pkgSlug, [
-      {
-        path: path.join(name),
-        contents: got.stream(url, {
-          headers: { Accept: "application/octet-stream" },
-        }),
-      },
-      {
-        path: "readme.md",
-        contents: fs.createReadStream("template/readme.md"),
-      },
-      {
-        path: path.join("package.json"),
-        contents: Buffer.from(
-          JSON.stringify({
-            ...templatePkg,
-            name: pkgName,
-            version: version,
-            os: [platform],
-            cpu: [arch],
-            bin: { earthly: name },
-            description: `${templatePkg.description} (${platform}-${arch})`,
+      const pkgSlug = slugify(pkgName);
+
+      yield* makePackageTar(pkgSlug, [
+        {
+          path: path.join(name),
+          contents: got.stream(url, {
+            headers: { Accept: "application/octet-stream" },
           }),
-          "utf-8"
-        ),
-      },
-    ]);
-  }
+        },
+        {
+          path: "readme.md",
+          contents: fs.createReadStream("template/readme.md"),
+        },
+        {
+          path: path.join("package.json"),
+          contents: Buffer.from(
+            JSON.stringify({
+              ...templatePkg,
+              name: pkgName,
+              version,
+              os: [platform],
+              cpu: [arch],
+              bin: { earthly: name },
+              description: `${templatePkg.description} (${platform}-${arch})`,
+            }),
+            "utf-8"
+          ),
+        },
+      ]);
+    }
 
-  if (allVersion) {
-    yield* makePackageTar("earthly-cli", [
-      {
-        path: "bin.js",
-        contents: fs.createReadStream("template/bin.js"),
-      },
-      {
-        path: "readme.md",
-        contents: fs.createReadStream("template/readme.md"),
-      },
-      {
-        path: "package.json",
-        contents: Buffer.from(
-          JSON.stringify({
-            ...templatePkg,
-            name: "earthly-cli",
-            version: allVersion,
-            optionalDependencies: Object.fromEntries(
-              [...allPkgs].map((pkg) => [pkg, allVersion])
-            ),
-            bin: { earthly: "bin.js" },
-          }),
-          "utf-8"
-        ),
-      },
-    ]);
-  }
-};
+    if (allPkgs.size > 0) {
+      yield* makePackageTar("earthly-cli", [
+        {
+          path: "bin.js",
+          contents: fs.createReadStream("template/bin.js"),
+        },
+        {
+          path: "readme.md",
+          contents: fs.createReadStream("template/readme.md"),
+        },
+        {
+          path: "package.json",
+          contents: Buffer.from(
+            JSON.stringify({
+              ...templatePkg,
+              name: "earthly-cli",
+              version,
+              optionalDependencies: Object.fromEntries(
+                [...allPkgs].map((pkg) => [pkg, version])
+              ),
+              bin: { earthly: "bin.js" },
+            }),
+            "utf-8"
+          ),
+        },
+      ]);
+    }
+  };
