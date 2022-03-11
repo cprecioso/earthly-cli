@@ -18,6 +18,7 @@
     "graphql-request": "^4.0.0",
     "gulp-gzip": "^1.4.2",
     "gulp-tar": "^3.1.0",
+    "p-queue": "^7.2.0",
     "semver": "^7.3.5",
     "vinyl": "^2.2.1",
     "vinyl-fs": "^3.0.3"
