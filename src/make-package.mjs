@@ -74,9 +74,18 @@ export const makePackage = (/** @type {string} */ version) =>
               version,
               os: [platform],
               cpu: [arch],
-              bin: { earthly: name },
+              main: "index.js",
               description: `${templatePkg.description} (${platform}-${arch})`,
             }),
+            "utf-8"
+          ),
+        },
+        {
+          path: "index.js",
+          contents: Buffer.from(
+            `const path = require("path");
+exports.binPath = path.resolve(__dirname, ${JSON.stringify(name)});
+`,
             "utf-8"
           ),
         },
