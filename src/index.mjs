@@ -1,6 +1,6 @@
 // @ts-check
 
-import got from "got";
+import got from "./got.mjs";
 import gulpGzip from "gulp-gzip";
 import semver from "semver";
 import { pipeline as _pipeline } from "stream";

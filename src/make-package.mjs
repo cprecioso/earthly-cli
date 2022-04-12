@@ -2,7 +2,7 @@
 
 import slugify from "@sindresorhus/slugify";
 import fs from "fs";
-import got from "got";
+import got from "./got.mjs";
 import gulpTar from "gulp-tar";
 import path from "path/posix";
 import { pipeline as _pipeline } from "stream";
