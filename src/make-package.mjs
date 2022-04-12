@@ -9,6 +9,10 @@ import { pipeline as _pipeline } from "stream";
 import { promisify } from "util";
 import Vinyl from "vinyl";
 
+const templateReadme = new URL("../template/readme.md", import.meta.url);
+const templatePackage = new URL("../template/package.json", import.meta.url);
+const templateBinScript = new URL("../template/bin.js", import.meta.url);
+
 const pipeline = promisify(_pipeline);
 
 const moveIntoFolder = (folder) =>
@@ -37,7 +41,7 @@ const makePackageTar = async function* (
 export const makePackage = (/** @type {string} */ version) =>
   async function* (releases) {
     const templatePkg = JSON.parse(
-      await fs.promises.readFile("template/package.json", "utf-8")
+      await fs.promises.readFile(templatePackage, "utf-8")
     );
 
     const allPkgs = new Set();
@@ -59,7 +63,7 @@ export const makePackage = (/** @type {string} */ version) =>
         },
         {
           path: "readme.md",
-          contents: fs.createReadStream("template/readme.md"),
+          contents: fs.createReadStream(templateReadme),
         },
         {
           path: path.join("package.json"),
@@ -83,11 +87,11 @@ export const makePackage = (/** @type {string} */ version) =>
       yield* makePackageTar("earthly-cli", [
         {
           path: "bin.js",
-          contents: fs.createReadStream("template/bin.js"),
+          contents: fs.createReadStream(templateBinScript),
         },
         {
           path: "readme.md",
-          contents: fs.createReadStream("template/readme.md"),
+          contents: fs.createReadStream(templatePackage),
         },
         {
           path: "package.json",
