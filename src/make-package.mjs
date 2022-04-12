@@ -56,7 +56,7 @@ export const makePackage = (/** @type {string} */ version) =>
 
       yield* makePackageTar(pkgSlug, [
         {
-          path: path.join(name),
+          path: name,
           contents: got.stream(url, {
             headers: { Accept: "application/octet-stream" },
           }),
@@ -66,7 +66,7 @@ export const makePackage = (/** @type {string} */ version) =>
           contents: fs.createReadStream(templateReadme),
         },
         {
-          path: path.join("package.json"),
+          path: "package.json",
           contents: Buffer.from(
             JSON.stringify({
               ...templatePkg,
