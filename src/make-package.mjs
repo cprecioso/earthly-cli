@@ -76,6 +76,7 @@ export const makePackage = (/** @type {string} */ version) =>
               cpu: [arch],
               main: "index.js",
               description: `${templatePkg.description} (${platform}-${arch})`,
+              bin: name,
             }),
             "utf-8"
           ),
