@@ -12,67 +12,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@earthly-cli/bin-darwin-arm64@npm:0.6.10":
-  version: 0.6.10
-  resolution: "@earthly-cli/bin-darwin-arm64@npm:0.6.10"
-  bin:
-    earthly: earthly-darwin-arm64
-  conditions: os=darwin & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@earthly-cli/bin-darwin-x64@npm:0.6.10":
-  version: 0.6.10
-  resolution: "@earthly-cli/bin-darwin-x64@npm:0.6.10"
-  bin:
-    earthly: earthly-darwin-amd64
-  conditions: os=darwin & cpu=x64
-  languageName: node
-  linkType: hard
-
-"@earthly-cli/bin-linux-arm64@npm:0.6.10":
-  version: 0.6.10
-  resolution: "@earthly-cli/bin-linux-arm64@npm:0.6.10"
-  bin:
-    earthly: earthly-linux-arm64
-  conditions: os=linux & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@earthly-cli/bin-linux-arm@npm:0.6.10":
-  version: 0.6.10
-  resolution: "@earthly-cli/bin-linux-arm@npm:0.6.10"
-  bin:
-    earthly: earthly-linux-arm7
-  conditions: os=linux & cpu=arm
-  languageName: node
-  linkType: hard
-
-"@earthly-cli/bin-linux-x64@npm:0.6.10":
-  version: 0.6.10
-  resolution: "@earthly-cli/bin-linux-x64@npm:0.6.10"
-  bin:
-    earthly: earthly-linux-amd64
-  conditions: os=linux & cpu=x64
-  languageName: node
-  linkType: hard
-
-"@earthly-cli/bin-win32-x64@npm:0.6.10":
-  version: 0.6.10
-  resolution: "@earthly-cli/bin-win32-x64@npm:0.6.10"
-  bin:
-    earthly: earthly-windows-amd64.exe
-  conditions: os=win32 & cpu=x64
-  languageName: node
-  linkType: hard
-
 "@earthly-cli/generator@workspace:.":
   version: 0.0.0-use.local
   resolution: "@earthly-cli/generator@workspace:."
   dependencies:
     "@sindresorhus/slugify": ^2.1.0
     "@types/node": ^16
-    earthly-cli: ^0.6.10
     execa: ^6.1.0
     got: ^12.0.1
     graphql: ^16.3.0
@@ -1171,35 +1116,6 @@ __metadata:
     readable-stream: ^2.0.0
     stream-shift: ^1.0.0
   checksum: 3c2ed2223d956a5da713dae12ba8295acb61d9acd966ccbba938090d04f4574ca4dca75cca089b5077c2d7e66101f32e6ea9b36a78ca213eff574e7a8b8accf2
-  languageName: node
-  linkType: hard
-
-"earthly-cli@npm:^0.6.10":
-  version: 0.6.10
-  resolution: "earthly-cli@npm:0.6.10"
-  dependencies:
-    "@earthly-cli/bin-darwin-arm64": 0.6.10
-    "@earthly-cli/bin-darwin-x64": 0.6.10
-    "@earthly-cli/bin-linux-arm": 0.6.10
-    "@earthly-cli/bin-linux-arm64": 0.6.10
-    "@earthly-cli/bin-linux-x64": 0.6.10
-    "@earthly-cli/bin-win32-x64": 0.6.10
-  dependenciesMeta:
-    "@earthly-cli/bin-darwin-arm64":
-      optional: true
-    "@earthly-cli/bin-darwin-x64":
-      optional: true
-    "@earthly-cli/bin-linux-arm":
-      optional: true
-    "@earthly-cli/bin-linux-arm64":
-      optional: true
-    "@earthly-cli/bin-linux-x64":
-      optional: true
-    "@earthly-cli/bin-win32-x64":
-      optional: true
-  bin:
-    earthly: bin.js
-  checksum: 6ec2b43d832bb2f41b69e3c60e2f9bfd886b5ffb8b22aa665860dd449e5dae67e80183ab52925c8874e93d4d8b46c466a697c1473a77fa7357fadea7a5c38f44
   languageName: node
   linkType: hard
 
