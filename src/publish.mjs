@@ -12,10 +12,14 @@ export const publish = async function* (
 
   for await (const file of files) {
     const promise = queue.add(() =>
-      execa("npm", ["publish", file.path], {
-        stdout: "inherit",
-        stderr: "inherit",
-      })
+      execa(
+        "npm",
+        ["publish", "--provenance", "--access", "public", file.path],
+        {
+          stdout: "inherit",
+          stderr: "inherit",
+        }
+      )
     );
     promises.push(promise);
   }
